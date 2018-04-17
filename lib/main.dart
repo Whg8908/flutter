@@ -35,6 +35,8 @@ class RandomWordsState extends State<RandomWords> {
   //以_命名就是表示私有变量
   final _suggestions = <WordPair>[];
 
+  final _saved = new Set<WordPair>(); //set集合
+
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
   @override
@@ -73,11 +75,26 @@ class RandomWordsState extends State<RandomWords> {
   }
 
   Widget _buildRow(WordPair pair) {
+    final alreadySaved = _saved.contains(pair);
+
     return new ListTile(
       title: new Text(
         pair.asPascalCase,
         style: _biggerFont,
       ),
+      trailing: new Icon(
+        alreadySaved ? Icons.favorite : Icons.favorite_border,
+        color: alreadySaved ? Colors.red : null,
+      ),
+      onTap: (){
+        setState((){
+          if(alreadySaved){
+            _saved.remove(pair);
+          }else{
+            _saved.add(pair);
+          }
+        });
+      },
     );
   }
 }
