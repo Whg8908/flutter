@@ -1,0 +1,23 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/
+build/app/generated/assets/
+build/app/generated/res/
+build/app/generated/source/aidl/
+build/app/generated/source/apt/
+build/app/generated/source/rs/
+build/app/intermediates/check-manifest/
+build/app/intermediates/incremental/mergeDebugResources/aapt-temp/
+build/app/intermediates/incremental/mergeDebugResources/stripped.dir/
+build/app/intermediates/incremental/processDebugResources/
+build/app/intermediates/jniLibs/
+build/app/intermediates/lint/
+build/app/intermediates/prebuild/
+build/app/intermediates/res/symbol-table-with-package/
+build/app/intermediates/rs/
+build/app/intermediates/shaders/
+build/app/intermediates/symbols/
+build/app/tmp/compileDebugJavaWithJavac/
+.packages
+gen/
+*.iml
+
