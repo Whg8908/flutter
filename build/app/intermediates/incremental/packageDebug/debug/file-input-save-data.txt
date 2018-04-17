@@ -1,27 +1,27 @@
 #Internal package file, do not edit.
-#Tue Apr 17 15:12:08 CST 2018
-2.base=/Users/whg/Downloads/flutter_app/build/app/intermediates/transforms/dexMerger/debug/0
-5.set=NATIVE_RESOURCE
-0.path=lib/armeabi-v7a/libflutter.so
+#Tue Apr 17 15:58:13 CST 2018
+2.base=/whg/Study/Flutter/flutter/build/app/intermediates/transforms/stripDebugSymbol/debug/0
+5.set=DEX
+0.path=snapshot_blob.bin
 2.baseType=DIRECTORY
-3.base=/Users/whg/Downloads/flutter_app/build/app/intermediates/assets/debug
-2.set=DEX
-1.path=lib/x86_64/libflutter.so
-4.base=/Users/whg/Downloads/flutter_app/build/app/intermediates/assets/debug
+3.base=/whg/Study/Flutter/flutter/build/app/intermediates/assets/debug
+2.set=NATIVE_RESOURCE
+1.path=lib/armeabi-v7a/libflutter.so
+4.base=/whg/Study/Flutter/flutter/build/app/intermediates/transforms/stripDebugSymbol/debug/0
 count=6
 5.baseType=DIRECTORY
-2.path=classes.dex
-5.base=/Users/whg/Downloads/flutter_app/build/app/intermediates/transforms/stripDebugSymbol/debug/0
-4.set=ASSET
-3.path=snapshot_blob.bin
+2.path=lib/x86_64/libflutter.so
+5.base=/whg/Study/Flutter/flutter/build/app/intermediates/transforms/dexMerger/debug/0
+4.set=NATIVE_RESOURCE
+3.path=app.flx
 3.baseType=DIRECTORY
 1.set=NATIVE_RESOURCE
-4.path=app.flx
+4.path=lib/x86/libflutter.so
 1.baseType=DIRECTORY
-5.path=lib/x86/libflutter.so
-0.base=/Users/whg/Downloads/flutter_app/build/app/intermediates/transforms/stripDebugSymbol/debug/0
+5.path=classes.dex
+0.base=/whg/Study/Flutter/flutter/build/app/intermediates/assets/debug
 0.baseType=DIRECTORY
 3.set=ASSET
-1.base=/Users/whg/Downloads/flutter_app/build/app/intermediates/transforms/stripDebugSymbol/debug/0
+1.base=/whg/Study/Flutter/flutter/build/app/intermediates/transforms/stripDebugSymbol/debug/0
 4.baseType=DIRECTORY
-0.set=NATIVE_RESOURCE
+0.set=ASSET
