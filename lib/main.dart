@@ -46,8 +46,45 @@ class RandomWordsState extends State<RandomWords> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('StartUp Name Generator'),
+        //提示: 某些widget属性需要单个widget（child），而其它一些属性,
+        // 如action，需要一组widgets(children），用方括号[]表示。
+        actions: <Widget>[
+          new IconButton(icon: new Icon(Icons.list), onPressed: _pushSaved),
+        ],
       ),
       body: _buildSuggestions(),
+    );
+  }
+
+  void _pushSaved() {
+    Navigator.of(context).push(
+      new MaterialPageRoute(
+        builder: (context) {
+          final titles = _saved.map(
+            (pair) {
+              return new ListTile(
+                title: new Text(pair.asPascalCase, style: _biggerFont),
+              );
+            },
+          );
+
+          final divied = ListTile
+              .divideTiles(
+                context: context,
+                tiles: titles,
+              )
+              .toList();
+
+          return new Scaffold(
+            appBar: new AppBar(
+              title: new Text('Saved Suggestions'),
+            ),
+            body: new ListView(
+              children: divied,
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -86,11 +123,11 @@ class RandomWordsState extends State<RandomWords> {
         alreadySaved ? Icons.favorite : Icons.favorite_border,
         color: alreadySaved ? Colors.red : null,
       ),
-      onTap: (){
-        setState((){
-          if(alreadySaved){
+      onTap: () {
+        setState(() {
+          if (alreadySaved) {
             _saved.remove(pair);
-          }else{
+          } else {
             _saved.add(pair);
           }
         });
