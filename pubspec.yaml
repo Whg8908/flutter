@@ -26,6 +26,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  #文件以包含 assets 标签. 这样才会使您的图片在代码中可用
+  assets:
+    - images/lake.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

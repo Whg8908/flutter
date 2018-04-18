@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(new MyApp()); //=> 单行函数或者方法的表示方法
 
+//编写第一个flutter应用
+/*
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -10,9 +12,7 @@ class MyApp extends StatelessWidget {
 //    final wordPair = new WordPair.random();
     return new MaterialApp(
       title: 'Startup Name Generator',
-      theme: new ThemeData(
-        primaryColor: Colors.greenAccent
-      ),
+      theme: new ThemeData(primaryColor: Colors.greenAccent),
 //      home: new Scaffold(
 ////        appBar: new AppBar(
 ////          title: new Text('Welcome to Flutter'),
@@ -47,6 +47,7 @@ class RandomWordsState extends State<RandomWords> {
 //    final wordPair = new WordPair.random();
 //    return new Text(wordPair.asPascalCase);
     return new Scaffold(
+      //Scaffold  提供了默认的导航栏 标题和包含主屏幕的widget树和body属性
       appBar: new AppBar(
         title: new Text('StartUp Name Generator'),
         //提示: 某些widget属性需要单个widget（child），而其它一些属性,
@@ -96,7 +97,7 @@ class RandomWordsState extends State<RandomWords> {
         padding: const EdgeInsets.all(16.0),
         // 对于每个建议的单词对都会调用一次itemBuilder，然后将单词对添加到ListTile行中
         // 在偶数行，该函数会为单词对添加一个ListTile row.
-        // 在奇数行，该行书湖添加一个分割线widget，来分隔相邻的词对。
+        // 在奇数行，该行书会添加一个分割线widget，来分隔相邻的词对。
         // 注意，在小屏幕上，分割线看起来可能比较吃力。
         itemBuilder: (context, i) {
           // 在每一列之前，添加一个1像素高的分隔线widget
@@ -135,6 +136,121 @@ class RandomWordsState extends State<RandomWords> {
           }
         });
       },
+    );
+  }
+}
+*/
+
+//在Flutter中构建布局
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    //1 实现标题行
+    Widget titleSection = new Container(
+      padding: const EdgeInsets.all(32.0),
+      child: new Row(
+        children: [
+          new Expanded(
+              child: new Column(
+            crossAxisAlignment: CrossAxisAlignment.start, //将列中的子项左对齐
+            children: [
+              new Container(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: new Text(
+                  'Oeschinen Lake Campground',
+                  style: new TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              new Text(
+                'Kandersteg, Switzerland',
+                style: new TextStyle(
+                  color: Colors.grey[500],
+                ),
+              )
+            ],
+          )),
+          new Icon(
+            Icons.star,
+            color: Colors.red[500],
+          ),
+          new Text('41'),
+        ],
+      ),
+    );
+
+    //2 实现按钮行
+    Column buildButtonColumn(IconData icon, String label) {
+      Color color = Theme.of(context).primaryColor;
+
+      return new Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          new Icon(
+            icon,
+            color: color,
+          ),
+          new Container(
+            margin: const EdgeInsets.only(top: 8.0),
+            child: new Text(
+              label,
+              style: new TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.w400,
+                color: color,
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
+    Widget buttonSection = new Container(
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly, //平均的分配每个列占据的行空间
+        children: [
+          buildButtonColumn(Icons.call, 'CALL'),
+          buildButtonColumn(Icons.near_me, 'ROUTE'),
+          buildButtonColumn(Icons.share, 'SHARE'),
+        ],
+      ),
+    );
+
+    // 3 实现文本部分
+    Widget textSection = new Container(
+      padding: const EdgeInsets.all(32.0),
+      child: new Text(
+        '''
+Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese Alps. Situated 1,578 meters above sea level, it is one of the larger Alpine Lakes. A gondola ride from Kandersteg, followed by a half-hour walk through pastures and pine forest, leads you to the lake, which warms to 20 degrees Celsius in the summer. Activities enjoyed here include rowing, and riding the summer toboggan run.
+        ''',
+        softWrap: true,
+      ),
+    );
+
+    return new MaterialApp(
+      title: 'Flutter Dome',
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: new Scaffold(
+          appBar: new AppBar(
+            title: new Text('Welcome to Flutter'),
+          ),
+          body: new ListView(
+            children: [
+              new Image.asset(
+                'images/lake.jpg',
+                width: 600.0,
+                height: 240.0,
+                fit: BoxFit.cover, //BoxFit.cover 告诉框架，图像应该尽可能小，但覆盖整个渲染框
+              ),
+              titleSection,
+              buttonSection,
+              textSection,
+            ],
+          ),
+      ),
+      debugShowCheckedModeBanner: false, //去掉slow mode
     );
   }
 }
