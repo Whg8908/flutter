@@ -169,11 +169,12 @@ class MyApp extends StatelessWidget {
               )
             ],
           )),
-          new Icon(
+         /* new Icon(
             Icons.star,
             color: Colors.red[500],
           ),
-          new Text('41'),
+          new Text('41'),*/
+         new FavoriteWidget(),
         ],
       ),
     );
@@ -223,7 +224,7 @@ class MyApp extends StatelessWidget {
         '''
 Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese Alps. Situated 1,578 meters above sea level, it is one of the larger Alpine Lakes. A gondola ride from Kandersteg, followed by a half-hour walk through pastures and pine forest, leads you to the lake, which warms to 20 degrees Celsius in the summer. Activities enjoyed here include rowing, and riding the summer toboggan run.
         ''',
-        softWrap: true,
+        softWrap: true, //softwrap属性表示文本是否应在软换行符（例如句点或逗号）之间断开。
       ),
     );
 
@@ -233,24 +234,72 @@ Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese Alps. Situate
         primarySwatch: Colors.blue,
       ),
       home: new Scaffold(
-          appBar: new AppBar(
-            title: new Text('Welcome to Flutter'),
-          ),
-          body: new ListView(
-            children: [
-              new Image.asset(
-                'images/lake.jpg',
-                width: 600.0,
-                height: 240.0,
-                fit: BoxFit.cover, //BoxFit.cover 告诉框架，图像应该尽可能小，但覆盖整个渲染框
-              ),
-              titleSection,
-              buttonSection,
-              textSection,
-            ],
-          ),
+        appBar: new AppBar(
+          title: new Text('Welcome to Flutter'),
+        ),
+        body: new ListView(
+          children: [
+            new Image.asset(
+              'images/lake.jpg',
+              width: 600.0,
+              height: 240.0,
+              fit: BoxFit.cover, //BoxFit.cover 告诉框架，图像应该尽可能小，但覆盖整个渲染框
+            ),
+            titleSection,
+            buttonSection,
+            textSection,
+          ],
+        ),
       ),
       debugShowCheckedModeBanner: false, //去掉slow mode
+    );
+  }
+}
+
+class FavoriteWidget extends StatefulWidget {
+  @override
+  _FavoriteWidgetState createState() => new _FavoriteWidgetState();
+}
+
+class _FavoriteWidgetState extends State<FavoriteWidget> {
+  bool _isFavorited = true;
+  int _favoriteCount = 41;
+
+  //点击事件更新状态
+  void _toggleFavorite() {
+    setState(() {
+      if (_isFavorited) {
+        _isFavorited = false;
+        _favoriteCount -= 1;
+      } else {
+        _isFavorited = true;
+        _favoriteCount += 1;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        new Container(
+          padding: const EdgeInsets.all(0.0),
+          child: new IconButton(
+            icon: (_isFavorited
+                ? new Icon(Icons.star)
+                : new Icon(Icons.star_border)),
+            color: Colors.red[500],
+            onPressed: _toggleFavorite,
+          ),
+        ),
+        new SizedBox(
+          width: 18.0,
+          child: new Container(
+            child: new Text('$_favoriteCount'),
+          ),
+        ),
+      ],
     );
   }
 }
