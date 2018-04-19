@@ -141,6 +141,7 @@ class RandomWordsState extends State<RandomWords> {
 }
 */
 
+/*
 //在Flutter中构建布局
 class MyApp extends StatelessWidget {
   @override
@@ -169,11 +170,13 @@ class MyApp extends StatelessWidget {
               )
             ],
           )),
-         /* new Icon(
+         */
+/* new Icon(
             Icons.star,
             color: Colors.red[500],
           ),
-          new Text('41'),*/
+          new Text('41'),*/ /*
+
          new FavoriteWidget(),
         ],
       ),
@@ -185,7 +188,7 @@ class MyApp extends StatelessWidget {
 
       return new Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment : MainAxisAlignment.center,
         children: [
           new Icon(
             icon,
@@ -300,6 +303,64 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
           ),
         ),
       ],
+    );
+  }
+}
+*/
+
+//控件状态管理
+//TapboxA 管理自身状态
+class TapboxA extends StatefulWidget {
+  TapboxA({Key key}) : super(key: key);
+
+  @override
+  _TapboxAState createState() => new _TapboxAState();
+}
+
+class _TapboxAState extends State<TapboxA> {
+  bool _active = false;
+
+  void _handleTap() {
+    setState(() {
+      _active = !_active;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new GestureDetector(
+      onTap: _handleTap, //点击事件
+      child: new Container(
+        child: new Center(
+          child: new Text(
+            _active?'Active':'Inactive',
+            style: new TextStyle(fontSize: 32.0,color: Colors.white),
+          ),
+        ),
+//        width: 200.0,
+//        height: 200.0,
+        decoration: new BoxDecoration(
+          color: _active ? Colors.lightGreen[700] : Colors.grey[600],
+        ),
+      ),
+    );
+  }
+}
+
+class MyApp extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      title: 'Flutter Demo',
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text('Flutter Demo'),
+        ),
+        body: new Center(
+          child: new TapboxA(),
+        ),
+      ),
     );
   }
 }
