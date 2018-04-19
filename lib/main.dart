@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:meta/meta.dart';
 
 void main() => runApp(new MyApp()); //=> 单行函数或者方法的表示方法
 
@@ -308,6 +309,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
 }
 */
 
+//###########################  widget 管理自身状态   ##################################
 //控件状态管理
 //TapboxA 管理自身状态
 class TapboxA extends StatefulWidget {
@@ -333,14 +335,70 @@ class _TapboxAState extends State<TapboxA> {
       child: new Container(
         child: new Center(
           child: new Text(
-            _active?'Active':'Inactive',
-            style: new TextStyle(fontSize: 32.0,color: Colors.white),
+            _active ? 'Active' : 'Inactive',
+            style: new TextStyle(fontSize: 32.0, color: Colors.white),
           ),
         ),
 //        width: 200.0,
 //        height: 200.0,
         decoration: new BoxDecoration(
           color: _active ? Colors.lightGreen[700] : Colors.grey[600],
+        ),
+      ),
+    );
+  }
+}
+
+//###########################  父widget 管理widget状态   ##################################
+//ParentWidget 为TapboxB 管理状态
+class ParentWidget extends StatefulWidget {
+  @override
+  _ParentWidgetState createState() => new _ParentWidgetState();
+}
+
+class _ParentWidgetState extends State<ParentWidget> {
+  bool _active = false;
+
+  void _handleTapboxChanged(bool newValue) {
+    setState(() {
+      _active = newValue;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      child: new TapboxB(
+        active: _active,
+        onChanged: _handleTapboxChanged,
+      ),
+    );
+  }
+}
+
+//TapboxB
+class TapboxB extends StatelessWidget {
+  final bool active;
+  final ValueChanged<bool> onChanged;
+
+  TapboxB({Key key, this.active: false, @required this.onChanged})
+      : super(key: key);
+
+  void _handleTap() {
+    onChanged(!active);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new GestureDetector(
+      onTap: _handleTap,
+      child: new Container(
+        child: new Text(
+          active?'Active':'Inactive',
+          style: new TextStyle(fontSize: 32.0,color: Colors.white),
+        ),
+        decoration: new BoxDecoration(
+          color: active?Colors.lightGreen[700]:Colors.grey[600],
         ),
       ),
     );
@@ -358,7 +416,8 @@ class MyApp extends StatelessWidget {
           title: new Text('Flutter Demo'),
         ),
         body: new Center(
-          child: new TapboxA(),
+//          child: new TapboxA(),
+        child: new ParentWidget(),
         ),
       ),
     );
