@@ -1,6 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
-import 'package:meta/meta.dart';
 
 void main() => runApp(new MyApp()); //=> 单行函数或者方法的表示方法
 
@@ -312,6 +312,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
 //###########################  widget 管理自身状态   ##################################
 //控件状态管理
 //TapboxA 管理自身状态
+/*
 class TapboxA extends StatefulWidget {
   TapboxA({Key key}) : super(key: key);
 
@@ -348,9 +349,11 @@ class _TapboxAState extends State<TapboxA> {
     );
   }
 }
+*/
 
 //###########################  父widget 管理widget状态   ##################################
 //ParentWidget 为TapboxB 管理状态
+/*
 class ParentWidget extends StatefulWidget {
   @override
   _ParentWidgetState createState() => new _ParentWidgetState();
@@ -404,9 +407,97 @@ class TapboxB extends StatelessWidget {
     );
   }
 }
+*/
+
+//###########################  混合管理widget状态   ##################################
+class ParentWidget extends StatefulWidget {
+  @override
+  _ParenteWidgetState createState() => new _ParenteWidgetState();
+}
+
+class _ParenteWidgetState extends State<ParentWidget> {
+  bool _active = false;
+
+  void _handleTapboxChanged(bool newValue) {
+    setState(() {
+      _active = newValue;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      child: new TapboxC(
+        active: _active,
+        onChanged: _handleTapboxChanged,
+      ),
+    );
+  }
+}
+
+class TapboxC extends StatefulWidget {
+  TapboxC({Key key, this.active: false, @required this.onChanged})
+      : super(key: key);
+
+  final bool active;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  _TapboxCState createState() => new _TapboxCState();
+}
+
+class _TapboxCState extends State<TapboxC> {
+  bool _heightlight = false;
+
+  void _handleTapDown(TapDownDetails details) {
+    setState(() {
+      _heightlight = true;
+    });
+  }
+
+  void _handleTapUp(TapUpDetails details) {
+    setState(() {
+      _heightlight = false;
+    });
+  }
+
+  void _handleTapCancel() {
+    setState(() {
+      _heightlight = false;
+    });
+  }
+
+  void _handleTap() {
+    widget.onChanged(!widget.active);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new GestureDetector(
+      onTapDown: _handleTapDown,
+      onTapUp: _handleTapUp,
+      onTapCancel: _handleTapCancel,
+      onTap: _handleTap,
+      child: new Container(
+        child: new Center(
+          child: new Text(
+            widget.active ? 'Active' : 'Inactive',
+            style: new TextStyle(fontSize: 32.0, color: Colors.white),
+          ),
+        ),
+        width: 200.0,
+        height: 200.0,
+        decoration: new BoxDecoration(
+            color: widget.active ? Colors.lightGreen[700] : Colors.grey[600],
+            border: _heightlight
+                ? new Border.all(color: Colors.teal[700], width: 10.0)
+                : null),
+      ),
+    );
+  }
+}
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -417,7 +508,7 @@ class MyApp extends StatelessWidget {
         ),
         body: new Center(
 //          child: new TapboxA(),
-        child: new ParentWidget(),
+          child: new ParentWidget(),
         ),
       ),
     );
